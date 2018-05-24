@@ -17,7 +17,7 @@ class Riley extends Component {
 			dogBreed: "Long Haired Dachshund"
 		}
 	}
-	
+
 	render() {
 		return (
 			<div>
