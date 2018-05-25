@@ -20,30 +20,15 @@ class Riley extends Component {
 			"breed": ""
 		}
 	}
-	// method to get car information for id passed to it
-	loadCar(car) {
-		//query api for car with specific id
-		fetch(`http://localhost:8088/cars/${car}`)
-			.then(r => r.json())
 
-			//take response of the car object
-			.then(response => {
-
-				//and set the state of that property
-				this.setState({
-					car: response
-				})
-			})
-	}
-
-	//same method as above for pet
-	loadPet(pet) {
-		fetch(`http://localhost:8088/pets/${pet}`)
+	//method to update any item based on parameters passed to it
+	loadItem(apiCollection, id, itemToUpdate) {
+		fetch(`http://localhost:8088/${apiCollection}/${id}`)
 			.then(r => r.json())
 
 			.then(response => {
 				this.setState({
-					pet: response
+					[itemToUpdate]: response
 				})
 			})
 	}
@@ -54,8 +39,8 @@ class Riley extends Component {
 
 			.then(response => {
 				this.setState(response)
-				this.loadCar(response.car)
-				this.loadPet(response.pet)
+				this.loadItem("cars", response.car, "car")
+				this.loadItem("pets", response.pet, "pet")
 			})
 	}
 
