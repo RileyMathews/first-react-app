@@ -5,24 +5,27 @@ import Home from './Home';
 import "./styles/bio.css"
 
 class Riley extends Component {
+	constructor (props) {
+	    super(props)
 
-	state = {
-		"firstName": "",
-		"lastName": "",
-		"class": "",
-		"address": "",
-		"car": {
-			"make": "",
-			"model": ""
-		},
-		"pet": {
-			"name": "",
-			"breed": ""
-		}
+	    /*
+	        Used for Contact component keys. Read the docs
+	        for more info.
+
+	        https://reactjs.org/docs/reconciliation.html#keys
+	    */
+	    this.contactCardKey = 1
+
+	    // Define initial state
+	    this.state = {
+	        people: []
+	    }
 	}
 
+	
+
 	//method to update any item based on parameters passed to it
-	loadItem(apiCollection, id, itemToUpdate) {
+	loadItem(apiCollection, id, itemToUpdate, i) {
 		fetch(`http://localhost:8088/${apiCollection}/${id}`)
 			.then(r => r.json())
 
@@ -34,13 +37,18 @@ class Riley extends Component {
 	}
 
 	loadPeople() {
-		fetch("http://localhost:8088/people/1")
+		fetch("http://localhost:8088/people")
 			.then(r => r.json())
 
 			.then(response => {
-				this.setState(response)
-				this.loadItem("cars", response.car, "car")
-				this.loadItem("pets", response.pet, "pet")
+				this.setState({
+					people: response
+				})
+				console.log(response)
+				response.forEach((person, i) => {
+					this.loadItem("cars", person.car, "car", i)
+					this.loadItem("pets", person.pet, "pet", i)
+				})
 			})
 	}
 
@@ -51,12 +59,16 @@ class Riley extends Component {
 
 	render() {
 		return (
-			<div className="bio">
-				<h2>{this.state.firstName} {this.state.lastName}</h2>
-				<p>{this.state.class}</p>
-				<Home address={this.state.address} />
-				<Car car={this.state.car} />
-				<Dog pet={this.state.pet} />
+			<div>
+				{this.state.people.map(c => (
+					<div className="bio" key={c.id}>
+						<h2>{c.name}</h2>
+						<p>{c.class}</p>
+						<Home address={c.address} />
+						<Car car={c.car} />
+						<Dog pet={c.pet} />
+					</div>
+				))}
 			</div>
 		);
 	}
