@@ -37,17 +37,12 @@ class Riley extends Component {
 	}
 
 	loadPeople() {
-		fetch("http://localhost:8088/people")
+		fetch("http://localhost:8088/people?_expand=pet&_expand=car")
 			.then(r => r.json())
 
 			.then(response => {
 				this.setState({
 					people: response
-				})
-				console.log(response)
-				response.forEach((person, i) => {
-					this.loadItem("cars", person.car, "car", i)
-					this.loadItem("pets", person.pet, "pet", i)
 				})
 			})
 	}
@@ -63,7 +58,7 @@ class Riley extends Component {
 				{this.state.people.map(c => (
 					<div className="bio" key={c.id}>
 						<h2>{c.name}</h2>
-						<p>{c.class}</p>
+						<h3>{c.class}</h3>
 						<Home address={c.address} />
 						<Car car={c.car} />
 						<Dog pet={c.pet} />
