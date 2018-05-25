@@ -6,8 +6,8 @@ class Dog extends Component {
 		return (
 			<section className="dog">
 				<h3>My favorite pet</h3>
-				<div>Name: {this.props.dog.name}</div>
-				<div>Breed: {this.props.dog.breed}</div>
+				<div>Name: {this.props.pet.name}</div>
+				<div>Breed: {this.props.pet.breed}</div>
 			</section>
 		)
 	}

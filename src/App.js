@@ -15,17 +15,48 @@ class Riley extends Component {
 			"make": "",
 			"model": ""
 		},
-		"dog": {
+		"pet": {
 			"name": "",
 			"breed": ""
 		}
+	}
+	// method to get car information for id passed to it
+	loadCar(car) {
+		//query api for car with specific id
+		fetch(`http://localhost:8088/cars/${car}`)
+			.then(r => r.json())
+
+			//take response of the car object
+			.then(response => {
+
+				//and set the state of that property
+				this.setState({
+					car: response
+				})
+			})
+	}
+
+	//same method as above for pet
+	loadPet(pet) {
+		fetch(`http://localhost:8088/pets/${pet}`)
+			.then(r => r.json())
+
+			.then(response => {
+				this.setState({
+					pet: response
+				})
+			})
 	}
 
 	loadPeople() {
 		fetch("http://localhost:8088/people/1")
 			.then(r => r.json())
 
-			.then(response => this.setState(response))
+			.then(response => {
+				this.setState(response)
+				this.loadCar(response.car)
+				this.loadPet(response.pet)
+			})
 	}
 
 	componentDidMount() {
@@ -40,7 +71,7 @@ class Riley extends Component {
 				<p>{this.state.class}</p>
 				<Home address={this.state.address} />
 				<Car car={this.state.car} />
-				<Dog dog={this.state.dog} />
+				<Dog pet={this.state.pet} />
 			</div>
 		);
 	}
