@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Car from './Car';
-import Dog from './Dog';
+import Pet from './Pet';
 import Home from './Home';
 import "./styles/bio.css"
+import Technologies from './technologies';
 
 class Riley extends Component {
 
@@ -15,14 +16,14 @@ class Riley extends Component {
 			"make": "",
 			"model": ""
 		},
-		"dog": {
+		"pet": {
 			"name": "",
 			"breed": ""
 		}
 	}
 
 	loadPeople() {
-		fetch("http://localhost:8088/people/1")
+		fetch("http://localhost:8088/people/1?_expand=pet&_expand=car")
 			.then(r => r.json())
 
 			.then(response => this.setState(response))
@@ -35,12 +36,13 @@ class Riley extends Component {
 
 	render() {
 		return (
-			<div className="bio">
+			<div className="bio content">
 				<h2>{this.state.firstName} {this.state.lastName}</h2>
 				<p>{this.state.class}</p>
 				<Home address={this.state.address} />
 				<Car car={this.state.car} />
-				<Dog dog={this.state.dog} />
+				<Pet pet={this.state.pet} />
+				<Technologies />
 			</div>
 		);
 	}

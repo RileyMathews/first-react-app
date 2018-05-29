@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import "./styles/dog.css"
 
-class Dog extends Component {
+class Pet extends Component {
 	render() {
 		return (
 			<section className="dog">
 				<h3>My favorite pet</h3>
-				<div>Name: {this.props.dog.name}</div>
-				<div>Breed: {this.props.dog.breed}</div>
+				<div>Name: {this.props.pet.name}</div>
+				<div>Breed: {this.props.pet.breed}</div>
 			</section>
 		)
 	}
 }
 
-export default Dog;
+export default Pet;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Riley from './App';
+import Riley from './home';
 import ProjectList from './projects/ProjectsList'
 import about from './about/aboutMe'
 import registerServiceWorker from './registerServiceWorker';
